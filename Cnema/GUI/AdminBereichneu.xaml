@@ -1,0 +1,262 @@
+﻿<Page x:Class="GUI.AdminBereichneu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GUI"
+      mc:Ignorable="d" 
+      d:DesignHeight="350" d:DesignWidth="525"
+      Title="AdminBereichneu">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0">
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="_Datei">
+                        <MenuItem Header="_Neu">
+                            <MenuItem.Icon>
+                                <Image Source="Image\Icons\neu.png" MaxWidth="16" MaxHeight="16" />
+                            </MenuItem.Icon>
+
+                            <!--Filme und Vorstellung erstellen -->
+                            <MenuItem Header="Film" Click="MenuItemFilmHinzufuegen_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="Image\Icons\film.png" MaxWidth="16" MaxHeight="16" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Vorstellung" Click="MenuItemVorstellungHinzufuegen_Click" >
+
+                                <MenuItem.Icon>
+                                    <Image Source="Image\Icons\vorstellung.png" MaxWidth="20" MaxHeight="20" />
+                                </MenuItem.Icon>
+
+                            </MenuItem>
+
+
+
+                        </MenuItem>
+                        <Separator />
+
+                        <MenuItem Header="_Abmelden" Click="MenuItemAdminLogout_Click">
+                            <MenuItem.Icon>
+                                <Image Source="Image\Icons\abmelden.png" MaxWidth="20" MaxHeight="20" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+
+                    </MenuItem>
+                </Menu>
+                <StackPanel></StackPanel>
+            </DockPanel>
+            <TabControl Grid.Row="1">
+                <TabItem Header="Filme">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="listViewFilme">
+
+                            <!--context  Menu-->
+                            <ListView.ContextMenu>
+                                <ContextMenu Name="ZoneIformationList" StaysOpen="true" Background="WhiteSmoke">
+                                    <ContextMenu.BitmapEffect>
+                                        <BitmapEffectGroup/>
+                                    </ContextMenu.BitmapEffect>
+                                    
+                                    <!--Rechtsklick-->
+                                    <MenuItem Header="Bearbeiten" Name="ContextMenuListViewFilmeEdit"  Click="ContextMenuListViewFilmeEdit_OnClick">
+                                        <MenuItem.Icon>
+                                            <Image Source="Image\Icons\bearbeiten.png" MaxWidth="20" MaxHeight="20" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Löschen" Name="ContextMenuListViewFilmeRemove" Click="ContextMenuListViewFilmeRemove_OnClick">
+                                        <MenuItem.Icon>
+                                            <Image Source="Image\Icons\loeschen.png" MaxWidth="20" MaxHeight="20" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+
+                            <ListView.View>
+                                <GridView>
+                                    <!--Zugriff auf die einzelnen Elemente-->
+                                    <GridViewColumn Header="FilmId" Width="120" DisplayMemberBinding="{Binding FilmId}" />
+                                    <GridViewColumn Header="Titel" Width="240" DisplayMemberBinding="{Binding Titel}" />
+                                    <GridViewColumn Header="Jahr" Width="120" DisplayMemberBinding="{Binding Jahr}" />
+                                    <GridViewColumn Header="Sprache" Width="120" DisplayMemberBinding="{Binding Sprache}" />
+                                    <GridViewColumn Header="Länge" Width="120" DisplayMemberBinding="{Binding Laenge}" />
+                                    <GridViewColumn Header="Genre" Width="120" DisplayMemberBinding="{Binding Genre}" />
+                                    <GridViewColumn Header="FSK" Width="120" DisplayMemberBinding="{Binding Fsk}" />
+                                    <GridViewColumn Header="3D" Width="120" DisplayMemberBinding="{Binding Is3D}" />
+                                    <GridViewColumn Header="Ø Film Bewertung" Width="120" DisplayMemberBinding="{Binding BewertungAvg}" />
+                                </GridView>
+                            </ListView.View>
+
+                        </ListView>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Vorstellungen">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="listViewVorstellung">
+
+                            <!--context  Menu-->
+                            <ListView.ContextMenu>
+                                <ContextMenu Name="ZoneIformationList2" StaysOpen="true" Background="WhiteSmoke">
+                                    <ContextMenu.BitmapEffect>
+                                        <BitmapEffectGroup/>
+                                    </ContextMenu.BitmapEffect>
+                                    <MenuItem Header="Löschen" Name="ContextMenuListViewVorstellungRemove" Click="ContextMenuListViewVorstellungRemove_OnClick">
+                                        <MenuItem.Icon>
+                                            <Image Source="Image\Icons\loeschen.png" MaxWidth="20" MaxHeight="20" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+
+                            <ListView.View>
+                                <!--Vorstellungen-->
+                                <GridView>
+                                    <GridViewColumn Header="VorstellungId" Width="120" DisplayMemberBinding="{Binding VorstellungId}" />
+                                    <GridViewColumn Header="DateTime" Width="240" DisplayMemberBinding="{Binding DateTime}" />
+                                    <GridViewColumn Header="FilmId" Width="120" DisplayMemberBinding="{Binding Film.FilmId}" />
+                                    <GridViewColumn Header="Titel" Width="240" DisplayMemberBinding="{Binding Film.Titel}" />
+                                    <GridViewColumn Header="Saal" Width="120" DisplayMemberBinding="{Binding Saal.SaalName}" />
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Bestellungen">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="listViewBestellungen">
+
+                            <!--context  Menu-->
+                            <ListView.ContextMenu>
+                                <ContextMenu Name="ZoneIformationList3" StaysOpen="true" Background="WhiteSmoke">
+                                    <ContextMenu.BitmapEffect>
+                                        <BitmapEffectGroup/>
+                                    </ContextMenu.BitmapEffect>
+                                    <MenuItem Header="Löschen" Name="ContextMenuListViewBestellungRemove" Click="ContextMenuListViewBestellungRemove_OnClick">
+
+                                        <MenuItem.Icon>
+                                            <Image Source="Image\Icons\loeschen.png" MaxWidth="20" MaxHeight="20" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="BestellId" Width="120" DisplayMemberBinding="{Binding BestellId}" />
+                                    <GridViewColumn Header="Preis" Width="120" DisplayMemberBinding="{Binding Preis}" />
+                                    <GridViewColumn Header="BenutzerId" Width="120" DisplayMemberBinding="{Binding Kunde.BenutzerId}" />
+                                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Kunde.Name}" />
+                                    <GridViewColumn Header="Vorname" Width="120" DisplayMemberBinding="{Binding Kunde.Vorname}" />
+                                    <GridViewColumn Header="VorstellungId" Width="120" DisplayMemberBinding="{Binding Vorstellung.VorstellungId}" />
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Kunden">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="listViewKunden">
+
+                            <!--context  Menu-->
+                            <ListView.ContextMenu>
+                                <ContextMenu Name="ZoneIformationList4" StaysOpen="true" Background="WhiteSmoke">
+                                    <ContextMenu.BitmapEffect>
+                                        <BitmapEffectGroup/>
+                                    </ContextMenu.BitmapEffect>
+
+                                    <MenuItem Header="Löschen" Name="ContextMenuListViewKundeRemove" Click="ContextMenuListViewKundeRemove_OnClick">
+                                        <MenuItem.Icon>
+                                            <Image Source="Image\Icons\loeschen.png" MaxWidth="20" MaxHeight="20" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="BenutzerId" Width="120" DisplayMemberBinding="{Binding BenutzerId}" />
+                                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
+                                    <GridViewColumn Header="Vorname" Width="120" DisplayMemberBinding="{Binding Vorname}" />
+                                    <GridViewColumn Header="Geburtsdatum" Width="150" DisplayMemberBinding="{Binding Geburtsdatum}" />
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Admins">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="listViewAdmins">
+
+                            <!--context  Menu-->
+                            <ListView.ContextMenu>
+                                <ContextMenu Name="ZoneIformationList5" StaysOpen="true" Background="WhiteSmoke">
+                                    <ContextMenu.BitmapEffect>
+                                        <BitmapEffectGroup/>
+                                    </ContextMenu.BitmapEffect>
+                                    <MenuItem Header="Löschen" Name="ContextMenuListViewAdminRemove" Click="ContextMenuListViewAdminRemove_OnClick">
+                                        <MenuItem.Icon>
+                                            <Image Source="Image\Icons\loeschen.png" MaxWidth="20" MaxHeight="20" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="BenutzerId" Width="120" DisplayMemberBinding="{Binding BenutzerId}" />
+                                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Filmbewertungen">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="listViewBewertungen" >
+                            <!--Nur lesender Zugriff für Admin auf Bewertungen, daher kein Kontextmenü: Durch Admin darf keine Manipulation der Bewertung möglich sein -->
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="FilmBewertungID" Width="120" DisplayMemberBinding="{Binding FilmBewertungId}" />
+                                    <GridViewColumn Header="Bewertung" Width="120" DisplayMemberBinding="{Binding Bewertung}" />
+                                    <GridViewColumn Header="KundeId" Width="120" DisplayMemberBinding="{Binding Kunde.BenutzerId}" />
+                                    <GridViewColumn Header="FilmId" Width="120" DisplayMemberBinding="{Binding Film.FilmId}" />
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+
+
+
+
+
+
+
+
+
+
+
+            </TabControl>
+        </Grid>
+    </Grid>
+</Page>
+        
+                        
+                   
+               
+
